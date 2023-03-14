@@ -1,0 +1,10 @@
+[project]
+name = "auditlog"
+dynamic = ["version"]
+description = "Audit log definitions"
+dependencies = [
+  "pydantic~=1.10",
+]
+
+[tools.setuptools.dynamic]
+version = {attr = "auditlog.__version__"}

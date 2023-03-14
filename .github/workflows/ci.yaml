@@ -1,0 +1,17 @@
+name: ci
+
+on:
+  push: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      - name: Local install
+        run: pip install -e .
+      - name: Test generate schema
+        run: python -m auditlog schema
+      - name: Test generate example
+        run: python -m auditlog example | jq
