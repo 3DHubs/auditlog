@@ -12,6 +12,18 @@ jobs:
       - name: Local install
         run: pip install -e .
       - name: Test generate schema
-        run: python -m auditlog schema
+        run: python -m auditlog schema | tee schema.json
+      - name: Upload schema
+        if: github.ref_name == 'main'
+        uses: actions/upload-artifact@v3
+        with:
+          name: schema
+          path: schema.json
       - name: Test generate example
-        run: python -m auditlog example | jq
+        run: python -m auditlog example | jq -M | tee example.json
+      - name: Upload example
+        if: github.ref_name == 'main'
+        uses: actions/upload-artifact@v3
+        with:
+          name: example
+          path: example.json
